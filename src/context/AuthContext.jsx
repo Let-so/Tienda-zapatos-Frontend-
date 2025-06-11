@@ -1,35 +1,45 @@
 import { createContext, useState, useEffect } from 'react'
-import axios from '../api/api'
+import api from '../api/api'
+
 export const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
-  const [user, setUser]       = useState(null)
-  const [token, setToken]     = useState(localStorage.getItem('token'))
+  const [user, setUser]   = useState(null)
+  const [token, setToken] = useState(localStorage.getItem('token') || '')
 
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', token)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-      axios.get('/auth/perfil').then(r => setUser(r.data))
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      api.get('/auth/perfil')
+         .then(res => setUser(res.data))
+         .catch(() => logout())
     }
   }, [token])
 
   const login = async (email, contraseña) => {
-    const { data } = await axios.post('/auth/login', { email, contraseña })
+    const { data } = await api.post('/auth/login', { email, contraseña })
+    setToken(data.token)
+    return data.usuario
+  }
+
+  const register = async (nombre, email, contraseña) => {
+    const { data } = await api.post('/auth/registro', { nombre, email, contraseña })
     setToken(data.token)
     return data.usuario
   }
 
   const logout = () => {
-    setToken(null)
+    setToken('')
     setUser(null)
-    delete axios.defaults.headers.common['Authorization']
+    delete api.defaults.headers.common['Authorization']
     localStorage.removeItem('token')
   }
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   )
 }
+
