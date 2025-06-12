@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001/api',
-});
+  baseURL: '/api'      // ahora apunta a http://localhost:5173/api que Vite proxyea a 3001
+})
 
-export default api;
+export default api

@@ -1,16 +1,28 @@
+// src/pages/Profile.jsx
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import { Card, CardContent, Typography } from '@mui/material'
 
 export default function Profile() {
   const { user } = useContext(AuthContext)
   if (!user) return null
 
   return (
-    <div>
-      <h1>Perfil</h1>
-      <p>Nombre: {user.nombre}</p>
-      <p>Email: {user.email}</p>
-      <p>Admin: {user.esAdmin ? 'Sí' : 'No'}</p>
-    </div>
+    <Card sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
+      <CardContent>
+        <Typography variant="h5" gutterBottom>
+          Perfil de Usuario
+        </Typography>
+        <Typography variant="body1">
+          <strong>Nombre:</strong> {user.nombre}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Email:</strong> {user.email}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Administrador:</strong> {user.esAdmin ? 'Sí' : 'No'}
+        </Typography>
+      </CardContent>
+    </Card>
   )
 }

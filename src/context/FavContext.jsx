@@ -1,3 +1,4 @@
+// src/context/FavContext.jsx
 import React, { createContext, useState, useEffect } from 'react'
 import api from '../api/api'
 
@@ -7,22 +8,29 @@ export function FavProvider({ children }) {
   const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
-    api.get('/favoritos')
-       .then(res => setFavorites(res.data))
-       .catch(() => setFavorites([]))
-  }, [])
+    const loadFavs = async () => {
+      try {
+        const res = await api.get('/favoritos')
+        setFavorites(res.data)
+      } catch (err) {
+        console.error('Error cargando favoritos', err)
+        setFavorites([])
+      }
+    }
+    loadFavs()
+  }, [])  // o [token] si quieres recargar cuando cambie el token
 
-  const addFav = async (idProducto) => {
-    const data = await api.post('/favoritos', { idProducto })
-    setFavorites(prev => [...prev, data])
+  const addFav = async idProducto => {
+    const { data } = await api.post('/favoritos', { idProducto })
+    setFavorites(favs => [...favs, data])
   }
 
-  const removeFav = async (idFavorito) => {
+  const removeFav = async idFavorito => {
     await api.delete(`/favoritos/${idFavorito}`)
-    setFavorites(prev => prev.filter(f => f.idFavorito !== idFavorito))
+    setFavorites(favs => favs.filter(f => f.idFavorito !== idFavorito))
   }
 
-  const isFavorite = (idProducto) => 
+  const isFavorite = idProducto =>
     favorites.some(f => f.producto.idProducto === idProducto)
 
   return (

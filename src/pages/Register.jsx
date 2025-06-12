@@ -1,41 +1,28 @@
-import React, { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+// src/pages/Profile.jsx
+import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import { Card, CardContent, Typography } from '@mui/material'
 
-export default function Register() {
-  const [nombre, setNombre] = useState('')
-  const [email, setEmail] = useState('')
-  const [contraseña, setContraseña] = useState('')
-  const { register } = useContext(AuthContext)
-  const navigate = useNavigate()
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    await register(nombre, email, contraseña)
-    navigate('/')
-  }
+export default function Profile() {
+  const { user } = useContext(AuthContext)
+  if (!user) return null
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Registro</h1>
-      <input
-        value={nombre}
-        onChange={e => setNombre(e.target.value)}
-        placeholder="Nombre"
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        value={contraseña}
-        onChange={e => setContraseña(e.target.value)}
-        placeholder="Contraseña"
-      />
-      <button type="submit">Registrarse</button>
-    </form>
+    <Card sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
+      <CardContent>
+        <Typography variant="h5" gutterBottom>
+          Perfil de Usuario
+        </Typography>
+        <Typography variant="body1">
+          <strong>Nombre:</strong> {user.nombre}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Email:</strong> {user.email}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Administrador:</strong> {user.esAdmin ? 'Sí' : 'No'}
+        </Typography>
+      </CardContent>
+    </Card>
   )
 }

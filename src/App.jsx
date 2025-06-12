@@ -9,6 +9,8 @@ import Cart from './pages/Cart';
 import Favorites from './pages/Favorites';
 import ProtectedRoute from './components/ProtectedRoute';
 
+
+
 export default function App() {
   return (
     <>
