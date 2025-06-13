@@ -1,28 +1,37 @@
-// src/pages/Profile.jsx
-import React, { useContext } from 'react'
-import { AuthContext } from '../context/AuthContext'
-import { Card, CardContent, Typography } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 
-export default function Profile() {
-  const { user } = useContext(AuthContext)
-  if (!user) return null
+// src/pages/Register.jsx
+export default function Register() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   return (
-    <Card sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
-      <CardContent>
-        <Typography variant="h5" gutterBottom>
-          Perfil de Usuario
-        </Typography>
-        <Typography variant="body1">
-          <strong>Nombre:</strong> {user.nombre}
-        </Typography>
-        <Typography variant="body1">
-          <strong>Email:</strong> {user.email}
-        </Typography>
-        <Typography variant="body1">
-          <strong>Administrador:</strong> {user.esAdmin ? 'Sí' : 'No'}
-        </Typography>
-      </CardContent>
-    </Card>
+    <form onSubmit={handleRegister}>
+      <TextField
+        label="Email"
+        type="email"
+        fullWidth
+        margin="normal"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+      />
+      <TextField
+        label="Contraseña"
+        type="password"
+        fullWidth
+        margin="normal"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        fullWidth
+        sx={{ mt: 2 }}
+      >
+        Registrarse
+      </Button>
+    </form>
   )
 }
+

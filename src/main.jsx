@@ -10,8 +10,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 
 const theme = createTheme({
-  palette: { mode: 'light' /* o 'dark' */ }
-});
+  palette: {
+    mode: 'light',        // o 'dark'
+    primary: { main: '#1976d2' },
+    secondary: { main: '#dc004e' },
+  },
+  typography: {
+    fontFamily: '"Roboto", sans-serif'
+  }
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -29,3 +36,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
