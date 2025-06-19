@@ -1,43 +1,72 @@
 // src/components/ProductCard.jsx
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../context/CartContext'
-import { FavContext }  from '../context/FavContext'
+import { CartContext } from '../context/CartContext';
+import { FavContext } from '../context/FavContext';
+import { 
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  IconButton
+} from '@mui/material';
+import { AddShoppingCart, Favorite, FavoriteBorder } from '@mui/icons-material';
 
 export default function ProductCard({ product }) {
-  const { addToCart }     = useContext(CartContext)
-  const { addFav, removeFav, isFavorite } = useContext(FavContext)
+  const { addToCart } = useContext(CartContext);
+  const { addFav, removeFav, isFavorite } = useContext(FavContext);
 
   return (
-    <div className="card">
-        <div className="border p-4 rounded shadow">
-      <Link to={`/p/${product.idProducto}`}>
-        <img
-          src={product.imagenURL}
+    <Card sx={{ 
+      maxWidth: 345,
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      transition: '0.3s',
+      '&:hover': {
+        transform: 'scale(1.02)',
+        boxShadow: 3
+      }
+    }}>
+      <Link to={`/product/${product.idProducto}`} style={{ textDecoration: 'none' }}>
+        <CardMedia
+          component="img"
+          height="200"
+          image={product.imagenURL || 'https://via.placeholder.com/200x200'}
           alt={product.nombreProducto}
-          className="w-full h-48 object-cover mb-2"
+          sx={{ objectFit: 'cover' }}
         />
-        <h3 className="text-lg font-semibold">{product.nombreProducto}</h3>
-        <p className="text-gray-600">${product.precio}</p>
+        <CardContent>
+          <Typography gutterBottom variant="h6" component="div" color="text.primary">
+            {product.nombreProducto}
+          </Typography>
+          <Typography variant="h6" color="primary">
+            ${product.precio}
+          </Typography>
+        </CardContent>
       </Link>
-    </div>
-      <img src={product.imagenURL} alt={product.nombreProducto} />
-      <h3>{product.nombreProducto}</h3>
-      <p>${product.precio}</p>
-      <button onClick={() => addToCart(product.idProducto, 1)}>
-        Agregar al carrito
-      </button>
-      {isFavorite(product.idProducto) ? (
-        <button onClick={() => removeFav(product.idProducto)}>
-          💔 Quitar de favoritos
-        </button>
-      ) : (
-        <button onClick={() => addFav(product.idProducto)}>
-          ❤️ Favorito
-        </button>
-      )}
-    </div>
-  )
+      <CardActions sx={{ marginTop: 'auto', justifyContent: 'space-between' }}>
+        <Button
+          size="small"
+          variant="contained"
+          startIcon={<AddShoppingCart />}
+          onClick={() => addToCart(product.idProducto, 1)}
+        >
+          Agregar
+        </Button>
+        <IconButton 
+          onClick={() => isFavorite(product.idProducto) 
+            ? removeFav(product.idProducto) 
+            : addFav(product.idProducto)}
+          color={isFavorite(product.idProducto) ? "error" : "default"}
+        >
+          {isFavorite(product.idProducto) ? <Favorite /> : <FavoriteBorder />}
+        </IconButton>
+      </CardActions>
+    </Card>
+  );
 }
 
 

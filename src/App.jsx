@@ -1,29 +1,64 @@
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { Box } from '@mui/material';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './pages/Home';
+import ProductList from './components/ProductList';
 import Product from './pages/Product';
+import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
-import Cart from './pages/Cart';
 import Favorites from './pages/Favorites';
 import ProtectedRoute from './components/ProtectedRoute';
 
-
-
-export default function App() {
+function App() {
   return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/p/:id" element={<Product />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
-        <Route path="/cart" element={<ProtectedRoute><Cart/></ProtectedRoute>} />
-        <Route path="/favorites" element={<ProtectedRoute><Favorites/></ProtectedRoute>} />
-      </Routes>
-    </>
-  )
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
+      <Header />
+      <Box component="main" sx={{ flexGrow: 1, py: 3 }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<ProductList />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute>
+                <Favorites />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Box>
+      <Footer />
+    </Box>
+  );
 }
+
+export default App;
