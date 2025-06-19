@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import ProductCard from '../components/ProductCard';
@@ -56,23 +55,24 @@ export default function Home() {
   }
 
   return (
-    <Box sx={{ mt: '80px' }}> {/* Margen superior para el navbar fijo */}
-      {/* Banner Principal */}
-      <Paper
+    <Box sx={{ 
+      mt: '80px',
+      backgroundColor: '#ffffff' // Fondo blanco para toda la página
+    }}>
+      {/* Banner Principal con gradiente dorado */}
+      <Box
         sx={{
           position: 'relative',
-          backgroundColor: 'grey.800',
+          background: 'linear-gradient(135deg, rgba(212,175,55,0.9) 0%, rgba(229,199,107,0.95) 100%)',
           color: '#fff',
           mb: 4,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundImage: `url(/banner-image.jpg)`,
-          height: '500px',
+          height: { xs: '400px', md: '500px' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
+          textAlign: 'center',
+          overflow: 'hidden',
           '&::before': {
             content: '""',
             position: 'absolute',
@@ -80,36 +80,40 @@ export default function Home() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.3)',
+            backgroundImage: 'url("/path-to-subtle-pattern.png")', // Opcional: patrón sutil
+            opacity: 0.05,
+            zIndex: 1
           }
         }}
       >
         <Box
           sx={{
             position: 'relative',
+            zIndex: 2,
             p: { xs: 3, md: 6 },
-            textAlign: 'center',
+            maxWidth: '800px'
           }}
         >
           <Typography
             component="h1"
             variant="h2"
-            color="inherit"
             sx={{ 
               mb: 4,
-              fontWeight: 'bold',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+              fontWeight: 700,
+              color: '#fff',
+              textShadow: '2px 2px 4px rgba(0,0,0,0.2)',
+              fontSize: { xs: '2.5rem', md: '3.5rem' }
             }}
           >
             Bienvenido a Atenas
           </Typography>
           <Typography
             variant="h5"
-            color="inherit"
-            paragraph
             sx={{ 
               mb: 4,
-              textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+              color: '#fff',
+              textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+              fontSize: { xs: '1.25rem', md: '1.5rem' }
             }}
           >
             Descubre nuestra nueva colección
@@ -119,18 +123,27 @@ export default function Home() {
             size="large"
             sx={{ 
               backgroundColor: 'var(--gold)',
+              color: '#fff',
+              px: 4,
+              py: 1.5,
+              fontSize: '1.1rem',
+              fontWeight: 600,
               '&:hover': {
-                backgroundColor: 'var(--gold-light)'
-              }
+                backgroundColor: 'var(--gold-light)',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
+              },
+              transition: 'all 0.3s ease',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
             }}
           >
-            Ver Colección
+            VER COLECCIÓN
           </Button>
         </Box>
-      </Paper>
+      </Box>
 
-      {/* Sección de Productos */}
-      <Container maxWidth="xl">
+      {/* Sección de Productos con fondo blanco */}
+      <Container maxWidth="xl" sx={{ py: 6 }}>
         <Typography 
           variant="h4" 
           component="h2" 
@@ -139,65 +152,39 @@ export default function Home() {
             textAlign: 'center', 
             mb: 6,
             color: 'var(--neutral-800)',
-            fontWeight: '500'
+            fontWeight: 600,
+            position: 'relative',
+            '&::after': {
+              content: '""',
+              display: 'block',
+              width: '80px',
+              height: '4px',
+              backgroundColor: 'var(--gold)',
+              margin: '20px auto 0',
+              borderRadius: '2px'
+            }
           }}
         >
           Nuestros Productos Destacados
         </Typography>
-
-        <Grid container spacing={4} sx={{ mb: 8 }}>
-          {productos && productos.length > 0 ? (
-            productos.map(producto => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={producto.idProducto}>
-                <ProductCard product={producto} />
-              </Grid>
-            ))
-          ) : (
-            <Typography variant="h6" sx={{ textAlign: 'center', width: '100%', mt: 4 }}>
-              No hay productos disponibles
-            </Typography>
-          )}
+        
+        {/* Grid de productos */}
+        <Grid container spacing={4}>
+          {productos.map((producto) => (
+            <Grid item key={producto.id} xs={12} sm={6} md={4} lg={3}>
+              <ProductCard 
+                product={producto} 
+                sx={{
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                    boxShadow: '0 8px 16px rgba(212,175,55,0.2)'
+                  }
+                }}
+              />
+            </Grid>
+          ))}
         </Grid>
-
-        {/* Sección de Categorías */}
-        <Box sx={{ my: 8 }}>
-          <Typography 
-            variant="h4" 
-            component="h2" 
-            gutterBottom 
-            sx={{ 
-              textAlign: 'center', 
-              mb: 6,
-              color: 'var(--neutral-800)',
-              fontWeight: '500'
-            }}
-          >
-            Explora por Categorías
-          </Typography>
-          <Grid container spacing={4}>
-            {['Zapatos', 'Botas', 'Sandalias', 'Deportivos'].map((categoria) => (
-              <Grid item xs={12} sm={6} md={3} key={categoria}>
-                <Paper
-                  sx={{
-                    p: 4,
-                    textAlign: 'center',
-                    backgroundColor: '#f8f8f8',
-                    transition: '0.3s',
-                    cursor: 'pointer',
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                      boxShadow: 3
-                    }
-                  }}
-                >
-                  <Typography variant="h6" component="h3">
-                    {categoria}
-                  </Typography>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
       </Container>
     </Box>
   );
