@@ -11,7 +11,7 @@ function FavProvider({ children }) {
 
   useEffect(() => {
     const loadFavs = async () => {
-      if (user) { // Solo cargar favoritos si hay usuario
+      if (user) {
         try {
           const res = await api.get('/favoritos');
           setFavorites(res.data);
@@ -22,20 +22,20 @@ function FavProvider({ children }) {
       }
     };
     loadFavs();
-  }, [user]); // Dependencia agregada
+  }, [user]);
 
   const addFav = async idProducto => {
     const { data } = await api.post('/favoritos', { idProducto });
     setFavorites(favs => [...favs, data]);
   };
 
-  const removeFav = async idFavorito => {
-    await api.delete(`/favoritos/${idFavorito}`);
-    setFavorites(favs => favs.filter(f => f.idFavorito !== idFavorito));
+  const removeFav = async idProducto => {
+    await api.delete(`/favoritos/${idProducto}`);
+    setFavorites(favs => favs.filter(f => f.producto && f.producto.idProducto !== idProducto));
   };
 
   const isFavorite = idProducto =>
-    favorites.some(f => f.producto.idProducto === idProducto);
+    favorites.some(f => f.producto && f.producto.idProducto === idProducto);
 
   return (
     <FavContext.Provider value={{ favorites, addFav, removeFav, isFavorite }}>

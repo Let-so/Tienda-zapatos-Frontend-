@@ -171,7 +171,7 @@ export default function Home() {
         {/* Grid de productos */}
         <Grid container spacing={4}>
           {productos.map((producto) => (
-            <Grid item key={producto.id} xs={12} sm={6} md={4} lg={3}>
+            <Grid item key={producto.idProducto} xs={12} sm={6} md={4} lg={3}>
               <ProductCard 
                 product={producto} 
                 sx={{
