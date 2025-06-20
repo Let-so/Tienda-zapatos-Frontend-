@@ -8,7 +8,6 @@ import {
   CircularProgress,
   Box,
   Alert,
-  Paper,
   Button
 } from '@mui/material';
 
@@ -57,14 +56,21 @@ export default function Home() {
   return (
     <Box sx={{ 
       mt: '80px',
-      backgroundColor: '#ffffff' // Fondo blanco para toda la página
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '100vw',
+      maxWidth: '100%',
+      overflowX: 'hidden',
+      backgroundColor: '#ffffff'
     }}>
-      {/* Banner Principal con gradiente dorado */}
+      {/* Banner Principal con fondo blanco */}
       <Box
         sx={{
           position: 'relative',
-          background: 'linear-gradient(135deg, rgba(212,175,55,0.9) 0%, rgba(229,199,107,0.95) 100%)',
-          color: '#fff',
+          background: '#ffffff',
+          width: '100vw',
+          maxWidth: '100%',
           mb: 4,
           height: { xs: '400px', md: '500px' },
           display: 'flex',
@@ -72,18 +78,7 @@ export default function Home() {
           justifyContent: 'center',
           flexDirection: 'column',
           textAlign: 'center',
-          overflow: 'hidden',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: 'url("/path-to-subtle-pattern.png")', // Opcional: patrón sutil
-            opacity: 0.05,
-            zIndex: 1
-          }
+          overflow: 'hidden'
         }}
       >
         <Box
@@ -91,59 +86,39 @@ export default function Home() {
             position: 'relative',
             zIndex: 2,
             p: { xs: 3, md: 6 },
-            maxWidth: '800px'
+            maxWidth: '800px',
+            margin: '0 auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
           }}
         >
-          <Typography
-            component="h1"
-            variant="h2"
-            sx={{ 
-              mb: 4,
-              fontWeight: 700,
-              color: '#fff',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.2)',
-              fontSize: { xs: '2.5rem', md: '3.5rem' }
+          <img 
+            src="/src/assets/logo.png" 
+            alt="Atenas" 
+            style={{
+              width: '300px',
+              height: 'auto',
+              marginBottom: '2rem'
             }}
-          >
-            Bienvenido a Atenas
-          </Typography>
-          <Typography
-            variant="h5"
-            sx={{ 
-              mb: 4,
-              color: '#fff',
-              textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
-              fontSize: { xs: '1.25rem', md: '1.5rem' }
-            }}
-          >
-            Descubre nuestra nueva colección
-          </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{ 
-              backgroundColor: 'var(--gold)',
-              color: '#fff',
-              px: 4,
-              py: 1.5,
-              fontSize: '1.1rem',
-              fontWeight: 600,
-              '&:hover': {
-                backgroundColor: 'var(--gold-light)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
-              },
-              transition: 'all 0.3s ease',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-            }}
-          >
-            VER COLECCIÓN
-          </Button>
+          />
         </Box>
       </Box>
 
-      {/* Sección de Productos con fondo blanco */}
-      <Container maxWidth="xl" sx={{ py: 6 }}>
+      {/* Sección de Productos */}
+      <Container 
+        maxWidth={false}
+        disableGutters
+        sx={{ 
+          width: '100vw',
+          maxWidth: '100%',
+          py: 6,
+          px: { xs: 2, sm: 4, md: 6 },
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
         <Typography 
           variant="h4" 
           component="h2" 
@@ -165,11 +140,14 @@ export default function Home() {
             }
           }}
         >
-          Nuestros Productos Destacados
+          NUESTROS PRODUCTOS DESTACADOS
         </Typography>
         
-        {/* Grid de productos */}
-        <Grid container spacing={4}>
+        <Grid 
+          container 
+          spacing={4} 
+          justifyContent="center"
+        >
           {productos.map((producto) => (
             <Grid item key={producto.id} xs={12} sm={6} md={4} lg={3}>
               <ProductCard 

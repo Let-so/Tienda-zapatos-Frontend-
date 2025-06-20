@@ -8,18 +8,50 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="nav-left">
-          <div className="search-container">
+      <nav className="navbar" style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '1rem',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        width: '100%'
+      }}>
+        <div className="nav-left" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem'
+        }}>
+          <div className="search-container" style={{
+            display: 'flex',
+            alignItems: 'center',
+            position: 'relative'
+          }}>
             <input
               type="text"
               className="search-input"
               placeholder="Buscar productos..."
+              style={{
+                padding: '0.5rem 2rem 0.5rem 1rem',
+                borderRadius: '20px',
+                border: '1px solid #ddd'
+              }}
             />
-            <FaSearch className="search-icon" />
+            <FaSearch className="search-icon" style={{
+              position: 'absolute',
+              right: '0.75rem',
+              color: 'var(--gold)'
+            }} />
           </div>
-          <div className="select-container">
-            <select className="nav-select">
+          <div className="select-container" style={{
+            display: 'flex',
+            gap: '0.5rem'
+          }}>
+            <select className="nav-select" style={{
+              padding: '0.5rem',
+              borderRadius: '20px',
+              border: '1px solid #ddd'
+            }}>
               <option value="">Categoría</option>
               <option value="zapatos">Zapatos</option>
               <option value="botas">Botas</option>
@@ -27,7 +59,11 @@ export default function Navbar() {
             </select>
           </div>
           <div className="select-container">
-            <select className="nav-select">
+            <select className="nav-select" style={{
+              padding: '0.5rem',
+              borderRadius: '20px',
+              border: '1px solid #ddd'
+            }}>
               <option value="">Talle</option>
               <option value="35">35</option>
               <option value="36">36</option>
@@ -39,34 +75,76 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="logo-container">
-          <img src="/logo.jpg" alt="Atenas" className="logo-image" />
-        </div>
-
-        <div className="nav-right">
-          <div className="nav-controls">
+        <div className="nav-right" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem'
+        }}>
+          <div className="nav-controls" style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1rem'
+          }}>
             {user ? (
               <>
-                <Link to="/profile" className="icon-button">
+                <Link to="/profile" className="icon-button" style={{
+                  color: 'var(--gold)',
+                  fontSize: '1.2rem'
+                }}>
                   <FaUser />
                 </Link>
-                <Link to="/cart" className="cart-container">
+                <Link to="/cart" className="cart-container" style={{
+                  color: 'var(--gold)',
+                  fontSize: '1.2rem',
+                  position: 'relative'
+                }}>
                   <FaShoppingCart className="icon-button" />
-                  <span className="cart-count">0</span>
+                  <span className="cart-count" style={{
+                    position: 'absolute',
+                    top: '-8px',
+                    right: '-8px',
+                    background: 'var(--gold)',
+                    color: 'white',
+                    borderRadius: '50%',
+                    padding: '2px 6px',
+                    fontSize: '0.8rem'
+                  }}>0</span>
                 </Link>
               </>
             ) : (
               <>
-                <Link to="/login" className="nav-select">Iniciar sesión</Link>
-                <Link to="/register" className="nav-select" style={{color: 'var(--gold)'}}>Crear cuenta</Link>
+                <Link 
+                  to="/login" 
+                  className="nav-select" 
+                  style={{
+                    textDecoration: 'none',
+                    color: '#333',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '20px',
+                    transition: 'all 0.3s ease'
+                  }}
+                >Iniciar sesión</Link>
+                <Link 
+                  to="/register" 
+                  className="nav-select" 
+                  style={{
+                    textDecoration: 'none',
+                    color: 'var(--gold)',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '20px',
+                    border: '1px solid var(--gold)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      background: 'var(--gold)',
+                      color: 'white'
+                    }
+                  }}
+                >Crear cuenta</Link>
               </>
             )}
           </div>
         </div>
       </nav>
-      <div className="main-content">
-        {/* Aquí va el contenido principal */}
-      </div>
     </>
   )
 }
