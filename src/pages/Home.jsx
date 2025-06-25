@@ -14,27 +14,36 @@ import {
 
 export default function Home() {
   const [productos, setProductos] = useState([])
-  const [loading,   setLoading]   = useState(true)
-  const [error,     setError]     = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchProductos = async () => {
       try {
         const { data } = await api.get('/productos')
-        if (Array.isArray(data)) setProductos(data)
-        else setError('Formato de datos inválido')
+        if (Array.isArray(data)) {
+          setProductos(data)
+        } else {
+          setError('Formato de datos inválido')
+        }
       } catch {
         setError('Error al cargar productos')
       } finally {
         setLoading(false)
       }
     }
+
     fetchProductos()
   }, [])
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="60vh"
+      >
         <CircularProgress sx={{ color: 'var(--gold)' }} />
       </Box>
     )
@@ -50,15 +59,16 @@ export default function Home() {
 
   return (
     <>
-      {/* 1 sola llamada al banner */}
+      {/* Banner único */}
       <Header />
 
-      {/* Aquí va ya directamente la grilla de productos */}
+      {/* Grid de productos */}
       <Container
         maxWidth={false}
         disableGutters
         sx={{
-          py: 4, px: { xs: 2, md: 4 },
+          py: 4,
+          px: { xs: 2, md: 4 },
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -81,7 +91,7 @@ export default function Home() {
         </Typography>
 
         <Grid container spacing={4} justifyContent="center">
-          {productos.map(prod => (
+          {productos.map((prod) => (
             <Grid item key={prod.idProducto} xs={12} sm={6} md={4} lg={3}>
               <ProductCard product={prod} />
             </Grid>
