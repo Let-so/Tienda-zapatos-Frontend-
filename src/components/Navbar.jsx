@@ -37,6 +37,18 @@ export default function Navbar() {
                 border: '1px solid #ddd'
               }}
             />
+            <AppBar position="static" color="transparent" elevation={0}>
+      <Toolbar sx={{ justifyContent: 'center' }}>
+        <Link component={RouterLink} to="/">
+          <Box
+            component="img"
+            src="/logo.png"
+            alt="Atenas Logo"
+            sx={{ height: 60, display: 'block' }}
+          />
+        </Link>
+      </Toolbar>
+    </AppBar>
             <FaSearch className="search-icon" style={{
               position: 'absolute',
               right: '0.75rem',
