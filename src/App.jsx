@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Navbar from './components/Navbar'
 import Header from './pages/Header'
 import Footer from './components/Footer'

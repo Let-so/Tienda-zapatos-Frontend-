@@ -1,5 +1,4 @@
 // src/pages/Header.jsx
-import React from 'react'
 import { Box, Typography } from '@mui/material'
 
 export default function Header() {
@@ -8,21 +7,21 @@ export default function Header() {
       component="header"
       sx={{
         width: '100%',
-        height: { xs: 200, md: 300 },               // altura responsiva
-        backgroundImage: 'url(/banner.jpg)',       // ruta en public/
+        height: { xs: 200, md: 300 },
+        backgroundImage: 'url(/banner.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
-        alignItems: 'center',                      // centrar contenido
+        alignItems: 'center',
         justifyContent: 'center',
       }}
     >
+      {/* Si quieres un título encima del banner */}
       <Typography
         variant="h3"
         sx={{
           color: '#fff',
-          textShadow: '0 2px 8px rgba(0,0,0,0.6)',
-          fontFamily: '"Playfair Display", serif',
+          textShadow: '0 2px 8px rgba(0,0,0,0.6)'
         }}
       >
         ELEGANCIA EN CADA PASO
@@ -30,3 +29,5 @@ export default function Header() {
     </Box>
   )
 }
+
+
