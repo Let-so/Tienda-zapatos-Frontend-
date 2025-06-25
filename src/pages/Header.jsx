@@ -7,7 +7,8 @@ export default function Header() {
     <Box
       component="header"
       sx={{
-        color: rgb(139, 115, 85),
+       boxShadow: 3,
+    textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
         width: '100%',
         height: { xs: 200, md: 300 },
         backgroundImage: 'url(/banner.jpg)',       // o '/logo.png' si prefieres
@@ -22,7 +23,7 @@ export default function Header() {
       <Typography
         variant="h3"
         sx={{
-          color: rgb(104, 101, 98),
+            boxShadow: '0 2px 8px rgba(235, 181, 181, 0.87)',
           textShadow: '0 2px 8px rgba(0,0,0,0.6)',
           fontFamily: '"Playfair Display", serif',
           letterSpacing: '3px',
