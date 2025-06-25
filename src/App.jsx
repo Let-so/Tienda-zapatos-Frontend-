@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import Header from './pages/Header';
 import ProductList from './components/ProductList';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
@@ -15,14 +16,10 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-      }}
-    >
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar />
+      <Header />  {/* Aquí metes tu banner justo después de la Navbar */}
+
       <Box component="main" sx={{ flexGrow: 1, py: 3 }}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -54,11 +51,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          {/* Ruta 404 opcional */}
+          <Route path="*" element={<Box sx={{ p: 4 }}><h2>404 • Página no encontrada</h2></Box>} />
         </Routes>
       </Box>
+
       <Footer />
     </Box>
-  );
+  )
 }
 
-export default App;
+export default App

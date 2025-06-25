@@ -1,11 +1,8 @@
-import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001/api', // Agregamos /api a la URL base
-  headers: {
-    'Content-Type': 'application/json',
-  }
+  baseURL: import.meta.env.VITE_API_URL
 });
+
 
 // Interceptor para manejar errores
 api.interceptors.response.use(

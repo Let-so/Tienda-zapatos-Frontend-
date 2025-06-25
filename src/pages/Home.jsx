@@ -11,6 +11,7 @@ import {
   Button
 } from '@mui/material';
 
+
 export default function Home() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -106,15 +107,7 @@ export default function Home() {
             overflow: 'hidden'
           }}
         >
-          <img
-            src="/src/assets/logo.png"
-            alt="Atenas"
-            style={{
-              width: '250px',
-              height: 'auto',
-              marginBottom: '1.5rem'
-            }}
-          />
+    
           <Typography
             variant="h4"
             sx={{
