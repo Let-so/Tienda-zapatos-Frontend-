@@ -6,10 +6,10 @@ import ProductCard from '../components/ProductCard'
 import {
   Container,
   Grid,
-  Typography,
   CircularProgress,
   Box,
-  Alert
+  Alert,
+  Typography
 } from '@mui/material'
 
 export default function Home() {
@@ -20,12 +20,9 @@ export default function Home() {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const res = await api.get('/productos')
-        if (Array.isArray(res.data)) {
-          setProductos(res.data)
-        } else {
-          setError('Formato de datos inválido')
-        }
+        const { data } = await api.get('/productos')
+        if (Array.isArray(data)) setProductos(data)
+        else setError('Formato de datos inválido')
       } catch {
         setError('Error al cargar productos')
       } finally {
@@ -53,10 +50,10 @@ export default function Home() {
 
   return (
     <>
-      {/* Banner único, ya pintado por App.jsx */}
+      {/* 1 sola llamada al banner */}
       <Header />
 
-      {/* Grid de productos */}
+      {/* Aquí va ya directamente la grilla de productos */}
       <Container
         maxWidth={false}
         disableGutters
@@ -80,7 +77,7 @@ export default function Home() {
             fontWeight: 600
           }}
         >
-          NUESTROS PRODUCTOS DESTACADOS
+          Nuestros productos destacados
         </Typography>
 
         <Grid container spacing={4} justifyContent="center">
