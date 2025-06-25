@@ -37,9 +37,16 @@ export default function Cart() {
           <List>
             {items.map((item) => (
               <ListItem key={item.idProducto} divider>
+                {item.producto?.imagenURL && (
+                  <img
+                    src={item.producto.imagenURL}
+                    alt={item.producto.nombreProducto}
+                    style={{ width: 80, height: 80, objectFit: 'cover', marginRight: 16 }}
+                  />
+                )}
                 <ListItemText
-                  primary={item.nombreProducto}
-                  secondary={`Precio: $${item.precio}`}
+                  primary={item.producto?.nombreProducto || 'Producto'}
+                  secondary={`Precio: $${item.producto?.precio ?? 'N/D'}`}
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
                   <IconButton
