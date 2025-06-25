@@ -75,12 +75,16 @@ export default function ProductCard({ product }) {
         <Button
           size="large"
           variant="contained"
-          startIcon={<AddShoppingCart />}
+          startIcon={
+            <AddShoppingCart sx={{ color: 'var(--neutral-800)' }} />
+          }
           onClick={() => addToCart(product.idProducto, 1)}
           sx={{
             backgroundColor: 'var(--gold)',
+            color: 'var(--neutral-800)', // <-- color de la letra
             '&:hover': {
-              backgroundColor: 'var(--gold-light)'
+              backgroundColor: 'var(--gold-light)',
+              color: 'var(--neutral-800)'
             }
           }}
         >
