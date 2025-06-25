@@ -7,32 +7,22 @@ export default function Header() {
     <Box
       component="header"
       sx={{
+        width: '100%',
+        height: { xs: 200, md: 300 },               // altura responsiva
+        backgroundImage: 'url(/banner.jpg)',       // ruta en public/
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         display: 'flex',
-        justifyContent: 'center',  // ← aquí centras horizontalmente
-        alignItems: 'center',      // ← aquí centras verticalmente
-        flexDirection: 'column',
-        py: 4,
-        background: 'linear-gradient(135deg, #ffffff 0%, #f8f3e8 50%, #ffffff 100%)'
+        alignItems: 'center',                      // centrar contenido
+        justifyContent: 'center',
       }}
     >
-      <Box
-        component="img"
-        src="/logo.png"
-        alt="Logo Atenas"
-        sx={{
-          width: 250,
-          mb: 2,
-          display: 'block'
-        }}
-      />
       <Typography
-        variant="h4"
+        variant="h3"
         sx={{
+          color: '#fff',
+          textShadow: '0 2px 8px rgba(0,0,0,0.6)',
           fontFamily: '"Playfair Display", serif',
-          fontWeight: 700,
-          color: '#8B7355',
-          letterSpacing: '3px',
-          textTransform: 'uppercase',
         }}
       >
         ELEGANCIA EN CADA PASO
