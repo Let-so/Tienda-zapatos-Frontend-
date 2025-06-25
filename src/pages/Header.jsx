@@ -24,7 +24,6 @@ export default function Header() {
           textShadow: '0 2px 8px rgba(0,0,0,0.6)'
         }}
       >
-        ELEGANCIA EN CADA PASO
       </Typography>
     </Box>
   )
