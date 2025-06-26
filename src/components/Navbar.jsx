@@ -13,7 +13,9 @@ import {
   InputBase,
   Select,
   MenuItem,
-  Button
+  Button,
+  Divider,
+  ListSubheader
 } from '@mui/material'
 
 export default function Navbar() {
@@ -54,11 +56,25 @@ export default function Navbar() {
               displayEmpty
               value=""
               sx={{ minWidth: 100, borderRadius: '20px', '& .MuiSelect-select': { py: 1 } }}
+              renderValue={() => 'Categoría'}
             >
-              <MenuItem value="">Categoría</MenuItem>
-              <MenuItem value="zapatos">Zapatos</MenuItem>
-              <MenuItem value="botas">Botas</MenuItem>
-              <MenuItem value="sandalias">Sandalias</MenuItem>
+              <ListSubheader disableSticky sx={{ fontWeight: 'bold', color: 'goldenrod', fontSize: 14, background: 'inherit' }}>
+                SNEAKERS
+              </ListSubheader>
+              <MenuItem value="urban">Urban</MenuItem>
+              <MenuItem value="sports">Sports</MenuItem>
+              <MenuItem value="fashion">Fashion</MenuItem>
+              <MenuItem value="canvas">Canvas</MenuItem>
+              <MenuItem value="basic">Basic</MenuItem>
+              <Divider />
+              <ListSubheader disableSticky sx={{ fontWeight: 'bold', color: 'goldenrod', fontSize: 14, background: 'inherit' }}>
+                SEASON & STYLE
+              </ListSubheader>
+              <MenuItem value="night">Night</MenuItem>
+              <MenuItem value="winter">Winter</MenuItem>
+              <MenuItem value="summer">Summer</MenuItem>
+              <MenuItem value="kids">Kids</MenuItem>
+              <MenuItem value="men">Men</MenuItem>
             </Select>
             <Select
               displayEmpty
