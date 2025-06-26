@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <>
       {/* Un AppBar completo en lugar de mezclar <nav> y MUI */}
-      <AppBar position="static" color="default" elevation={1}>
+      <AppBar position="sticky" color="default" elevation={1}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
 
           {/* Logo centrado */}
