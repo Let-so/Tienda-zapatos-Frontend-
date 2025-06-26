@@ -8,37 +8,39 @@ function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const { user } = useContext(AuthContext);
 
-  // Al montar, cargamos el carrito
   useEffect(() => {
-    const loadCart = async () => {
-      if (user) {
-        try {
-          const res = await api.get('/carrito');
-          // 🔧 FIX: Los items están en res.data.items, no en res.data
-          setItems(Array.isArray(res.data.items) ? res.data.items : []);
-        } catch (error) {
-          console.error('Error loading cart:', error);
-          setItems([]);
-        }
+  const loadCart = async () => {
+    if (user) {
+      console.log('👤 Usuario logueado, cargando carrito...');
+      try {
+        const res = await api.get('/carrito');
+        console.log('📦 Respuesta completa del carrito:', res.data);
+        console.log('📦 Items extraídos:', res.data.items);
+        setItems(Array.isArray(res.data.items) ? res.data.items : []);
+      } catch (error) {
+        console.error('❌ Error loading cart:', error);
+        setItems([]);
       }
-    };
-    loadCart();
-  }, [user]);
+    } else {
+      console.log('👤 No hay usuario logueado');
+    }
+  };
+  loadCart();
+}, [user]);
 
-  const addToCart = async (idProducto, cantidad = 1) => {
+  async function addToCart(idProducto, cantidad = 1) {
     try {
       const { data } = await api.post('/carrito/items', {
         idProducto,
         cantidad
       });
-      
+
       setItems(prev => {
         const exists = prev.find(i => i.idProducto === idProducto);
         if (exists) {
-          return prev.map(i => 
-            i.idProducto === idProducto
-              ? { ...i, cantidad: i.cantidad + cantidad }
-              : i
+          return prev.map(i => i.idProducto === idProducto
+            ? { ...i, cantidad: i.cantidad + cantidad }
+            : i
           );
         }
         return [...prev, data];
@@ -47,7 +49,7 @@ function CartProvider({ children }) {
       console.error('Error adding to cart:', error);
       throw error;
     }
-  };
+  }
 
 const updateItem = async (idProducto, cantidad) => {
   try {
