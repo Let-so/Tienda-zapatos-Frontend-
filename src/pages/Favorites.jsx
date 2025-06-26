@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import api from '../api/api'
 import ProductCard from '../components/ProductCard'
 
+
 export default function Favorites() {
   const [favoritos, setFavoritos] = useState([])
   const [loading, setLoading]     = useState(true)

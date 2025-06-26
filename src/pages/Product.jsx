@@ -1,3 +1,4 @@
+// src/pages/Product.jsx
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
@@ -32,7 +33,7 @@ export default function Product() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
-  
+
   const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -40,17 +41,17 @@ export default function Product() {
   const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
-  console.log('🔍 Cargando producto con ID:', id);
-  api.get(`/productos/${id}`)
-    .then(res => {
-      console.log('✅ Producto cargado:', res.data);
-      setProducto(res.data);
-    })
-    .catch(error => {
-      console.error('❌ Error cargando producto:', error);
-      setProducto(null);
-    });
-}, [id]);
+    console.log('🔍 Cargando producto con ID:', id);
+    api.get(`/productos/${id}`)
+      .then(res => {
+        console.log('✅ Producto cargado:', res.data);
+        setProducto(res.data);
+      })
+      .catch(error => {
+        console.error('❌ Error cargando producto:', error);
+        setProducto(null);
+      });
+  }, [id]);
 
   const handleQuantityChange = (newQuantity) => {
     if (newQuantity >= 1) {
@@ -64,8 +65,8 @@ export default function Product() {
       await addToCart(producto.idProducto, cantidad);
       setAlertMessage(`¡${producto.nombreProducto} agregado al carrito!`);
       setShowAlert(true);
-      setCantidad(1); // Reset quantity after adding
-    } catch (error) {
+      setCantidad(1); // Reset quantity
+    } catch {
       setAlertMessage('Error al agregar al carrito');
       setShowAlert(true);
     } finally {
@@ -104,9 +105,7 @@ export default function Product() {
                 height: { xs: 300, md: 500 },
                 objectFit: 'cover'
               }}
-              onError={(e) => {
-                e.target.src = '/placeholder-image.jpg';
-              }}
+              onError={(e) => { e.target.src = '/placeholder-image.jpg'; }}
             />
           </Card>
         </Grid>
@@ -114,12 +113,10 @@ export default function Product() {
         {/* Product Details */}
         <Grid item xs={12} md={6}>
           <Box sx={{ pl: { md: 2 } }}>
-            {/* Product Name */}
             <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
               {producto.nombreProducto}
             </Typography>
 
-            {/* Stock Status */}
             <Box sx={{ mb: 2 }}>
               <Chip
                 label={producto.stock ? "En Stock" : "Sin Stock"}
@@ -128,14 +125,12 @@ export default function Product() {
               />
             </Box>
 
-            {/* Price */}
             <Typography variant="h3" color="primary" gutterBottom fontWeight="bold">
               ${producto.precio?.toLocaleString('es-AR')}
             </Typography>
 
             <Divider sx={{ my: 3 }} />
 
-            {/* Description */}
             <Typography variant="h6" gutterBottom>
               Descripción
             </Typography>
@@ -145,7 +140,6 @@ export default function Product() {
 
             <Divider sx={{ my: 3 }} />
 
-            {/* Quantity Selector */}
             <Box sx={{ mb: 3 }}>
               <Typography variant="h6" gutterBottom>
                 Cantidad
@@ -158,7 +152,7 @@ export default function Product() {
                 >
                   <Remove />
                 </IconButton>
-                
+
                 <TextField
                   value={cantidad}
                   onChange={(e) => {
@@ -171,7 +165,7 @@ export default function Product() {
                   }}
                   sx={{ width: 80 }}
                 />
-                
+
                 <IconButton
                   onClick={() => handleQuantityChange(cantidad + 1)}
                   size="large"
@@ -181,7 +175,6 @@ export default function Product() {
               </Box>
             </Box>
 
-            {/* Add to Cart Button */}
             <Button
               variant="contained"
               size="large"
@@ -199,7 +192,6 @@ export default function Product() {
               {loading ? 'Agregando...' : 'Agregar al Carrito'}
             </Button>
 
-            {/* Product Features */}
             <Paper elevation={1} sx={{ p: 2, bgcolor: 'grey.50' }}>
               <Typography variant="h6" gutterBottom>
                 Beneficios
@@ -223,7 +215,6 @@ export default function Product() {
         </Grid>
       </Grid>
 
-      {/* Success/Error Alert */}
       <Snackbar
         open={showAlert}
         autoHideDuration={3000}
