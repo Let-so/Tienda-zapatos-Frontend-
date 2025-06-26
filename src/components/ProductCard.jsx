@@ -1,4 +1,3 @@
-// src/components/ProductCard.jsx
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
@@ -28,7 +27,7 @@ export default function ProductCard({ product }) {
       await addToCart(product.idProducto, 1);
       setOpen(true);
     } catch (error) {
-      // Podrías mostrar un error aquí si lo deseas
+      console.error('Error al agregar al carrito:', error);
     }
   };
 

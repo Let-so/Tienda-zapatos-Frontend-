@@ -87,7 +87,7 @@ const updateItem = async (idProducto, cantidad) => {
   const calculateTotal = () => {
     if (!Array.isArray(items) || items.length === 0) return 0;
     return items.reduce((acc, item) => {
-      // 🔧 FIX: El precio está en item.producto.precio
+      // FIX: El precio está en item.producto.precio
       const price = Number(item.producto?.precio) || 0;
       const quantity = Number(item.cantidad) || 0;
       return acc + (price * quantity);

@@ -1,4 +1,3 @@
-// src/context/FavContext.jsx
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { AuthContext } from './AuthContext';
 import api from '../api/api';
@@ -46,7 +45,6 @@ function FavProvider({ children }) {
     await api.delete(`/favoritos/${idProducto}`);
     console.log('✅ Favorito removido');
     
-    // Cambiar para buscar por idProducto directamente
     setFavorites(favs => favs.filter(f => f.idProducto !== idProducto));
   } catch (error) {
     console.error('❌ Error removiendo favorito:', error);
@@ -55,7 +53,7 @@ function FavProvider({ children }) {
 };
 
   const isFavorite = (idProducto) => {
-  // Buscar directamente por idProducto, no por f.producto.idProducto
+  // Buscar directamente por idProducto
   const result = favorites.some(f => f.idProducto === idProducto);
   console.log(`🔍 ¿Es favorito ${idProducto}?`, result, favorites);
   return result;

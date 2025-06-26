@@ -64,7 +64,7 @@ export default function Product() {
       await addToCart(producto.idProducto, cantidad);
       setAlertMessage(`¡${producto.nombreProducto} agregado al carrito!`);
       setShowAlert(true);
-      setCantidad(1); // Reset quantity after adding
+      setCantidad(1); 
     } catch (error) {
       setAlertMessage('Error al agregar al carrito');
       setShowAlert(true);

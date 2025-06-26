@@ -1,4 +1,3 @@
-// src/pages/Favorites.jsx
 import React, { useState, useEffect } from 'react'
 import api from '../api/api'
 import ProductCard from '../components/ProductCard'

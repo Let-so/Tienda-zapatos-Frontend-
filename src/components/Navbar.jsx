@@ -1,10 +1,8 @@
-// src/components/Navbar.jsx
 import React, { useContext } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { FaHeart, FaSearch, FaShoppingCart, FaUser } from 'react-icons/fa'
 
-// **IMPORTACIONES DE MUI**
 import {
   AppBar,
   Toolbar,
@@ -100,7 +98,7 @@ export default function Navbar() {
                 </IconButton>
                 <IconButton component={RouterLink} to="/cart" color="inherit">
                   <FaShoppingCart />
-                  {/* podrías usar un Badge de MUI aquí para contar los items */}
+                  {/* Badge */}
                 </IconButton>
                 <Button color="inherit" onClick={logout}>Salir</Button>
               </>

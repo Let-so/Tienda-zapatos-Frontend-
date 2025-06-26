@@ -42,7 +42,7 @@ function ProductList() {
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
-    setSelectedSubCategory(''); // Reset subcategory when category changes
+    setSelectedSubCategory(''); 
   };
 
   const handleSubCategoryChange = (e) => {

@@ -12,7 +12,7 @@ function AuthProvider({ children }) {
     if (token) {
       try {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        const res = await api.get('/usuarios/perfil'); // Cambiado de auth/me a usuarios/me
+        const res = await api.get('/usuarios/perfil'); // Endpoint para obtener el perfil del usuario autenticado
         setUser(res.data);
       } catch (error) {
         console.error('Auth check failed:', error);
