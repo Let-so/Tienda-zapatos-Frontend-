@@ -1,5 +1,5 @@
 // src/components/ProductCard.jsx
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { FavContext } from '../context/FavContext';
@@ -10,13 +10,27 @@ import {
   CardMedia,
   Button,
   Typography,
-  IconButton
+  IconButton,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import { AddShoppingCart, Favorite, FavoriteBorder } from '@mui/icons-material';
 
 export default function ProductCard({ product }) {
   const { addToCart } = useContext(CartContext);
   const { addFav, removeFav, isFavorite } = useContext(FavContext);
+
+  // Estado para el Snackbar
+  const [open, setOpen] = useState(false);
+
+  const handleAddToCart = async () => {
+    try {
+      await addToCart(product.idProducto, 1);
+      setOpen(true);
+    } catch (error) {
+      // Podrías mostrar un error aquí si lo deseas
+    }
+  };
 
   return (
     <Card sx={{ 
@@ -58,7 +72,7 @@ export default function ProductCard({ product }) {
           <Typography 
             variant="h6" 
             sx={{ 
-              color: 'var(--gold)',
+              color: '#333',
               fontWeight: 'bold',
               mt: 2
             }}
@@ -78,7 +92,7 @@ export default function ProductCard({ product }) {
           startIcon={
             <AddShoppingCart sx={{ color: 'var(--neutral-800)' }} />
           }
-          onClick={() => addToCart(product.idProducto, 1)}
+          onClick={handleAddToCart}
           sx={{
             backgroundColor: 'var(--gold)',
             color: 'var(--neutral-800)', // <-- color de la letra
@@ -91,27 +105,38 @@ export default function ProductCard({ product }) {
           Agregar
         </Button>
         <IconButton
-  onClick={async () => {
-    try {
-      if (isFavorite(product.idProducto)) {
-        await removeFav(product.idProducto);
-      } else {
-        await addFav(product.idProducto);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }}
-  sx={{
-    color: isFavorite(product.idProducto) ? 'var(--gold)' : 'var(--neutral-800)',
-    '&:hover': {
-      color: 'var(--gold)'
-    }
-  }}
->
-  {isFavorite(product.idProducto) ? <Favorite /> : <FavoriteBorder />}
-</IconButton>
+          onClick={async () => {
+            try {
+              if (isFavorite(product.idProducto)) {
+                await removeFav(product.idProducto);
+              } else {
+                await addFav(product.idProducto);
+              }
+            } catch (error) {
+              console.error('Error:', error);
+            }
+          }}
+          sx={{
+            color: isFavorite(product.idProducto) ? 'var(--gold)' : 'var(--neutral-800)',
+            '&:hover': {
+              color: 'var(--gold)'
+            }
+          }}
+        >
+          {isFavorite(product.idProducto) ? <Favorite /> : <FavoriteBorder />}
+        </IconButton>
       </CardActions>
+      {/* Snackbar de confirmación */}
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={() => setOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={() => setOpen(false)} severity="success" sx={{ width: '100%' }}>
+          ¡Producto agregado al carrito!
+        </Alert>
+      </Snackbar>
     </Card>
   );
 }

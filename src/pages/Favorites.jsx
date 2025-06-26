@@ -29,7 +29,7 @@ export default function Favorites() {
 
   return (
     <Container sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom fontWeight="bold" color="primary">
+      <Typography variant="h4" gutterBottom fontWeight="bold" color="brand.main">
         Mis Favoritos
       </Typography>
       <Grid container spacing={4}>

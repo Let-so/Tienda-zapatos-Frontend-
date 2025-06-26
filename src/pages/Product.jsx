@@ -129,7 +129,7 @@ export default function Product() {
             </Box>
 
             {/* Price */}
-            <Typography variant="h3" color="primary" gutterBottom fontWeight="bold">
+            <Typography variant="h3" color="text.primary" gutterBottom fontWeight="bold">
               ${producto.precio?.toLocaleString('es-AR')}
             </Typography>
 
