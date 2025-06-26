@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import api from '../api/api'
 import ProductCard from '../components/ProductCard'
+import { Container, Typography, Grid, Box, Alert } from '@mui/material'
 
 export default function Favorites() {
   const [favoritos, setFavoritos] = useState([])
@@ -15,24 +16,38 @@ export default function Favorites() {
       .finally(() => setLoading(false))
   }, [])
 
-  if (loading) return <p className="p-4">Cargando favoritos…</p>
-  if (!favoritos.length) return <p className="p-4">No tienes favoritos aún.</p>
+  if (loading) return (
+    <Container sx={{ mt: 4 }}>
+      <Typography variant="h6">Cargando favoritos…</Typography>
+    </Container>
+  )
+  if (!favoritos.length) return (
+    <Container sx={{ mt: 4 }}>
+      <Alert severity="info">No tienes favoritos aún.</Alert>
+    </Container>
+  )
 
   return (
-    <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {favoritos
-        .filter(fav => fav.producto && fav.producto.idProducto) // Solo productos válidos
-        .map(fav => (
-          <ProductCard
-            key={fav.idFavorito}
-            product={fav.producto}
-          />
-        ))}
+    <Container sx={{ mt: 4 }}>
+      <Typography variant="h4" gutterBottom fontWeight="bold" color="primary">
+        Mis Favoritos
+      </Typography>
+      <Grid container spacing={4}>
+        {favoritos
+          .filter(fav => fav.producto && fav.producto.idProducto)
+          .map(fav => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={fav.idFavorito}>
+              <ProductCard product={fav.producto} />
+            </Grid>
+          ))}
+      </Grid>
       {favoritos.filter(fav => !fav.producto).length > 0 && (
-        <div className="text-red-500 mb-2">
-          Algunos favoritos no tienen producto asociado.
-        </div>
+        <Box mt={2}>
+          <Alert severity="warning">
+            Algunos favoritos no tienen producto asociado.
+          </Alert>
+        </Box>
       )}
-    </div>
+    </Container>
   )
 }

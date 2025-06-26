@@ -90,19 +90,27 @@ export default function ProductCard({ product }) {
         >
           Agregar
         </Button>
-        <IconButton 
-          onClick={() => isFavorite(product.idProducto) 
-            ? removeFav(product.idProducto) 
-            : addFav(product.idProducto)}
-          sx={{
-            color: isFavorite(product.idProducto) ? 'var(--gold)' : 'var(--neutral-800)',
-            '&:hover': {
-              color: 'var(--gold)'
-            }
-          }}
-        >
-          {isFavorite(product.idProducto) ? <Favorite /> : <FavoriteBorder />}
-        </IconButton>
+        <IconButton
+  onClick={async () => {
+    try {
+      if (isFavorite(product.idProducto)) {
+        await removeFav(product.idProducto);
+      } else {
+        await addFav(product.idProducto);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }}
+  sx={{
+    color: isFavorite(product.idProducto) ? 'var(--gold)' : 'var(--neutral-800)',
+    '&:hover': {
+      color: 'var(--gold)'
+    }
+  }}
+>
+  {isFavorite(product.idProducto) ? <Favorite /> : <FavoriteBorder />}
+</IconButton>
       </CardActions>
     </Card>
   );

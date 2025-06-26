@@ -2,7 +2,7 @@
 import React, { useContext } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import { FaSearch, FaShoppingCart, FaUser } from 'react-icons/fa'
+import { FaHeart, FaSearch, FaShoppingCart, FaUser } from 'react-icons/fa'
 
 // **IMPORTACIONES DE MUI**
 import {
@@ -76,6 +76,9 @@ export default function Navbar() {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             {user ? (
               <>
+                <IconButton component={RouterLink} to="/favorites" color="inherit">
+                  <FaHeart style={{ color: '#D4AF37' }} /> {/* Ícono dorado */}
+                </IconButton>
                 <IconButton component={RouterLink} to="/profile" color="inherit">
                   <FaUser />
                 </IconButton>

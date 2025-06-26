@@ -19,8 +19,6 @@ import { Delete, Add, Remove } from '@mui/icons-material';
 export default function Cart() {
   const { items, removeItem, updateItem, clearCart, total } = useContext(CartContext);
 
-  console.log('🛒 Estado del carrito:', { items, total });
-  
   if (!items.length) {
     return (
       <Container maxWidth="md" sx={{ mt: 4 }}>

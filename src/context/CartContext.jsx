@@ -14,8 +14,6 @@ function CartProvider({ children }) {
       console.log('👤 Usuario logueado, cargando carrito...');
       try {
         const res = await api.get('/carrito');
-        console.log('📦 Respuesta completa del carrito:', res.data);
-        console.log('📦 Items extraídos:', res.data.items);
         setItems(Array.isArray(res.data.items) ? res.data.items : []);
       } catch (error) {
         console.error('❌ Error loading cart:', error);

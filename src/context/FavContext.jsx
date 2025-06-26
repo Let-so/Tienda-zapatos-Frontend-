@@ -14,28 +14,52 @@ function FavProvider({ children }) {
       if (user) {
         try {
           const res = await api.get('/favoritos');
+          console.log('🔍 Favoritos cargados:', res.data);
           setFavorites(res.data);
         } catch (err) {
-          console.error('Error cargando favoritos', err);
+          console.error('❌ Error cargando favoritos', err);
           setFavorites([]);
         }
+      } else {
+        setFavorites([]);
       }
     };
     loadFavs();
   }, [user]);
 
-  const addFav = async idProducto => {
-    const { data } = await api.post('/favoritos', { idProducto });
-    setFavorites(favs => [...favs, data]);
+  const addFav = async (idProducto) => {
+    try {
+      console.log('❤️ Agregando favorito:', idProducto);
+      const { data } = await api.post('/favoritos', { idProducto });
+      console.log('✅ Favorito agregado:', data);
+      
+      setFavorites(favs => [...favs, data]);
+    } catch (error) {
+      console.error('❌ Error agregando favorito:', error);
+      throw error;
+    }
   };
 
-  const removeFav = async idProducto => {
+  const removeFav = async (idProducto) => {
+  try {
+    console.log('💔 Removiendo favorito:', idProducto);
     await api.delete(`/favoritos/${idProducto}`);
-    setFavorites(favs => favs.filter(f => f.producto && f.producto.idProducto !== idProducto));
-  };
+    console.log('✅ Favorito removido');
+    
+    // Cambiar para buscar por idProducto directamente
+    setFavorites(favs => favs.filter(f => f.idProducto !== idProducto));
+  } catch (error) {
+    console.error('❌ Error removiendo favorito:', error);
+    throw error;
+  }
+};
 
-  const isFavorite = idProducto =>
-    favorites.some(f => f.producto && f.producto.idProducto === idProducto);
+  const isFavorite = (idProducto) => {
+  // Buscar directamente por idProducto, no por f.producto.idProducto
+  const result = favorites.some(f => f.idProducto === idProducto);
+  console.log(`🔍 ¿Es favorito ${idProducto}?`, result, favorites);
+  return result;
+};  
 
   return (
     <FavContext.Provider value={{ favorites, addFav, removeFav, isFavorite }}>
