@@ -1,44 +1,36 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from 'react'
+import Header from './Header'
 import api from '../api/api'
 import ProductCard from '../components/ProductCard'
-import Header from './Header'
 import {
-  Container,
-  Grid,
-  CircularProgress,
-  Box,
-  Alert,
-  Typography
+  Container, Grid, Box,
+  CircularProgress, Alert, Typography
 } from '@mui/material'
 
 export default function Home() {
   const [productos, setProductos] = useState([])
-  const [loading,   setLoading  ] = useState(true)
-  const [error,     setError    ] = useState(null)
+  const [loading,   setLoading]   = useState(true)
+  const [error,     setError]     = useState(null)
 
   useEffect(() => {
-    async function fetchListado() {
+    async function fetchProductos() {
       try {
         const { data } = await api.get('/productos')
-        // data debe ser un array
-        if (Array.isArray(data)) {
-          setProductos(data)
-        } else {
-          throw new Error('Formato inesperado')
-        }
-      } catch (err) {
-        setError(err.message || 'Error cargando productos')
+        if (Array.isArray(data)) setProductos(data)
+        else setError('Formato de datos inválido')
+      } catch {
+        setError('Error al cargar productos')
       } finally {
         setLoading(false)
       }
     }
-    fetchListado()
-  }, [])  // <-- sólo al montar
+    fetchProductos()
+  }, [])
 
   if (loading) return (
     <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-      <CircularProgress />
+      <CircularProgress sx={{ color: 'var(--gold)' }} />
     </Box>
   )
   if (error) return (
@@ -49,17 +41,77 @@ export default function Home() {
 
   return (
     <>
+      {/* Logo + Navbar */}
       <Header />
 
-      <Container maxWidth={false} disableGutters sx={{ py:4, px:{xs:2,md:4} }}>
-        <Typography variant="h4" align="center" gutterBottom>
+      {/* Banner dinámico solo en Home */}
+      <Box
+        sx={{
+          width: '100%',
+          py: { xs: 6, md: 10 },
+          textAlign: 'center',
+          background: 'linear-gradient(135deg, #ffffff 0%, #f8f3e8 50%, #ffffff 100%)'
+        }}
+      >
+        <Typography
+          variant="h3"
+          sx={{
+            fontFamily: '"Playfair Display", serif',
+            fontWeight: 700,
+            color: '#8B7355',
+            letterSpacing: '3px',
+            textTransform: 'uppercase',
+            position: 'relative',
+            display: 'inline-block',
+            '&::before, &::after': {
+              content: '""',
+              position: 'absolute',
+              top: '50%',
+              width: { xs: '40px', md: '60px' },
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent, #8B7355, transparent)',
+              transform: 'translateY(-50%)'
+            },
+            '&::before': { left: '-80px' },
+            '&::after':  { right: '-80px' },
+          }}
+        >
+          Elegancia en cada paso
+        </Typography>
+      </Box>
+
+      {/* Grilla de productos */}
+      <Container
+        maxWidth={false}
+        disableGutters
+        sx={{
+          py: 4,
+          px: { xs:2, md:4 },
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          background: '#ffffff'
+        }}
+      >
+        <Typography
+          variant="h4"
+          component="h2"
+          gutterBottom
+          sx={{
+            fontFamily: '"Playfair Display", serif',
+            textAlign: 'center',
+            mb: 6,
+            color: '#8B7355',
+            fontWeight: 600
+          }}
+        >
           Nuestros productos destacados
         </Typography>
 
         <Grid container spacing={4} justifyContent="center">
-          {productos.map(p => (
-            <Grid item key={p.idProducto} xs={12} sm={6} md={4} lg={3}>
-              <ProductCard product={p} />
+          {productos.map(prod => (
+            <Grid item key={prod.idProducto} xs={12} sm={6} md={4} lg={3}>
+              <ProductCard product={prod} />
             </Grid>
           ))}
         </Grid>
@@ -67,4 +119,3 @@ export default function Home() {
     </>
   )
 }
-
