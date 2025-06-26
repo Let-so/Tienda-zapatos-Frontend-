@@ -1,15 +1,8 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from 'react'
+import { Box, Container, Grid, CircularProgress, Alert, Typography } from '@mui/material'
 import api from '../api/api'
 import ProductCard from '../components/ProductCard'
-import {
-  Container,
-  Grid,
-  CircularProgress,
-  Box,
-  Alert,
-  Typography
-} from '@mui/material'
 
 export default function Home() {
   const [productos, setProductos] = useState([])

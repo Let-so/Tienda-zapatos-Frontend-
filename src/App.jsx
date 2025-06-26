@@ -3,7 +3,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-
+import { Box, Typography } from '@mui/material'  
 import Home from './pages/Home'
 import ProductList from './components/ProductList'
 import Product from './pages/Product'
